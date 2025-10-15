@@ -2,6 +2,13 @@ package accesdades.ra2.ac1.accesdades_ra2_ac1.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import accesdades.ra2.ac1.accesdades_ra2_ac1.model.student;
+import accesdades.ra2.ac1.accesdades_ra2_ac1.repository.StudentRepository;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -13,15 +20,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @RequestMapping("/api")
 public class StudentsController {
+    @Autowired
+    StudentRepository studentRepository;
 @GetMapping("/students")
-public String getStudent() {
-    return "Endpoint Get";
+public List<student> getStudent() {
+    return studentRepository.findAll();
+    
 }
 @PostMapping("/students/batch")
-public String postStudent() {
-    
-    
-    return "Endpoint Post";
+public String addStudent() {
+    int numReg = studentRepository.save();
+    return "has afegit " + numReg +" registre.";
 }
 
 
